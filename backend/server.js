@@ -9,6 +9,17 @@ dotenv.config();
 
 const app = express();
 
+app.get("/api/products", async (req, res) =>{
+  try{
+    //To fetch all the products in db
+    const products = await Product.find({});
+    res.status(200).json({ success: true, data:  products});
+  } catch (error){
+    console.error("Failed to fetch products: ", error.message);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+})
+
 app.post("/products", async (req, res) => {
   const product = req.body; //user sent data
 
@@ -36,6 +47,7 @@ app.delete("/api/products/:id", async (req,res)=>{
     await Product.findByIdAndDelete(id);
     res.status(200).json({success: true, message: "Product deleted"})
   } catch (error){
+    console.error("Failed to delete product: ", error.message);
     res.status(404).json({success: false, message: "Product not found"})
   }
 })
