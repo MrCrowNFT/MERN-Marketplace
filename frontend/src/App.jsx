@@ -5,7 +5,7 @@ import CreatePage from "./pages/CreatePage"
 import Navbar from "./components/Navbar"
 
 function App() {
-
+//we put navbar before routes so that it appears in every page
   return (
     <>
       <Box minH={"100vh"}>
